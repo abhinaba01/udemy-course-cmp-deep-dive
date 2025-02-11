@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'button[appButton]',
@@ -6,7 +6,18 @@ import { Component, Input } from '@angular/core';
   imports: [],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
+  host:{
+    '(click)': 'onClick()'
+  }
 })
 export class ButtonComponent {
+  
+  constructor(private el:ElementRef){}
+
+  onClick(){
+    console.log('Button component host', this.el)
+  }
+  
+
   
 }
