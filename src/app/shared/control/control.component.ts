@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewEncapsulation,
+  ContentChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -16,8 +22,10 @@ export class ControlComponent {
   @Input({ required: true }) label!: string;
 
   constructor(private el: ElementRef) {}
+  @ContentChild('input') inputControl?: ElementRef<HTMLInputElement>
+
   onClick() {
-    console.log('Clicked!');
-    console.log('HTML Elemet', this.el);
+    console.log('Content',this.inputControl)
+    
   }
 }
