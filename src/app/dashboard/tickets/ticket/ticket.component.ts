@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
+import { Ticket } from '../ticket.model';
 
 @Component({
   selector: 'app-ticket',
@@ -9,4 +10,16 @@ import { Component } from '@angular/core';
 })
 export class TicketComponent {
 
+  data = input.required<Ticket>();
+  detailsVisible = signal(false);
+  close=output();
+
+  onToggleDetails(){
+    this.detailsVisible.set(!this.detailsVisible());
+  }
+  
+  onComplete(){
+    this.close.emit();
+  }
+ 
 }

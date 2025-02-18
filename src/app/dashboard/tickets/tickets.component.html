@@ -1,1 +1,13 @@
-<app-new-ticket></app-new-ticket>
+<div id="new-ticket">
+  <app-new-ticket (add)="onSubmit($event)"></app-new-ticket>
+  <ul>
+  @for(ticket of tickets;track ticket.id){
+    
+    <app-ticket [data]="ticket" (close)="onCloseTicket(ticket.id)"></app-ticket>
+
+  }@empty {
+    <p>No tickets available</p>
+  }
+</ul>
+  
+</div>

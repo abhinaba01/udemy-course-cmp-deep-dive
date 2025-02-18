@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -8,8 +8,15 @@ import { Component } from '@angular/core';
   styleUrl: './server-status.component.css',
 })
 export class ServerStatusComponent {
-  currentStatus = 'online';
+  currentStatus = signal<'online'|'offline'| 'unknown'>('offline');
   private interval?: ReturnType<typeof setInterval>
+
+
+  constructor(){
+    effect(()=>{
+      console.log(this.currentStatus())
+    })
+  }
   
 
   ngOnInit() {
@@ -17,11 +24,11 @@ export class ServerStatusComponent {
     this.interval = setInterval(() => {
       const rnd = 100 * Math.random();
       if (rnd < 33) {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
       } else if (rnd < 66) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
     }, 1000);
   }
